@@ -16,7 +16,11 @@
 | ブラウザコンソール | 主要制作E2Eでpageerrorなし |
 | GitHub Pages相当サブパス | `/synthia-srt-studio/` で実ビルドのHTML・JS・CSS・MIT表記を読み込み成功 |
 | ローカル開発起動 | Viteを `http://127.0.0.1:5186/` で起動 |
-| 独立Git | `main`初期化、remoteなし。Git作成者情報未設定のため初回コミット未作成、ソースをステージ済み |
+| 独立Git | 専用の `origin` を設定し、`main` を `synthia-creative/synthia-srt-studio` へpush済み。作成者はコマンド単位指定 |
+| GitHub Actions | 初回公開 #1で単体56件・E2E12件、型検査、build、deployが成功 |
+| 公開ファイル | HTML・JS・CSS・ライセンス2ファイルがHTTP 200、SHA-256はローカルdistと全件一致 |
+| 公開Chrome操作 | WAVの再生・8秒終端、波形、日本語／英語2行の生成、手動時刻編集、標準SRTダウンロードを確認 |
+| 公開表示 | Chromeで1440×1000／768×1024／390×844、全体の横はみ出しなし。スマホの歌詞パネル切替も確認 |
 
 Windows 11 / Node.js 24.19.0 / React 19.3.0 / TypeScript 5.9.3 / Vite 7.3.7 / Vitest 3.2.7 / Playwright 1.64.0。npmの解決版は `package-lock.json` で固定しています。Playwrightは既存Microsoft Edge（Chromium）を使用しました。既存環境へブラウザを追加インストールしていません。
 
@@ -57,7 +61,11 @@ Windows 11 / Node.js 24.19.0 / React 19.3.0 / TypeScript 5.9.3 / Vite 7.3.7 / Vi
 
 各画像を実際に開いて、目盛り・配色・パネル配置・時刻表示・選択行を確認しました。
 
-納品ZIPは `releases/SYNTHIA-SRT-Studio-v1.0.0-static.zip` と `releases/SYNTHIA-SRT-Studio-v1.0.0-source.zip`。静的ZIPはdist一式、ソースZIPは新規リポジトリのステージ済みツリーから生成します。既存Git設定へ作成者情報を追加していません。
+納品ZIPは `releases/SYNTHIA-SRT-Studio-v1.0.0-static.zip` と `releases/SYNTHIA-SRT-Studio-v1.0.0-source.zip`。静的ZIPはdist一式、ローカル納品用ソースZIPはGitツリーから生成しています。GitHubからはmainのソースZIPを取得できます。既存Git設定へ作成者情報を追加していません。
+
+公開後の画面証拠は `docs/qa/public-desktop.jpg`、`public-tablet.jpg`、`public-mobile.jpg`、`github-pages-success.jpg`。検証用の生成サイン波と歌詞を使用しています。公開Chromeのerror／warnログは空でした。出力した `SYNTHIA-public-check.srt` の2行は、1000→2000ms、3000→4000ms、本文も入力と一致し、セクションタグは除外されていました。
+
+公開コードSHA：`762613f0c11180e194bd713d74379c76b9a23fbe`。[Actions #1](https://github.com/synthia-creative/synthia-srt-studio/actions/runs/37720393805) はSuccess、build 52秒／deploy 10秒。公開コードと、その後に追加する記録・説明のコミットを区別しています。
 
 ## 修正した問題
 
@@ -69,8 +77,8 @@ Windows 11 / Node.js 24.19.0 / React 19.3.0 / TypeScript 5.9.3 / Vite 7.3.7 / Vi
 
 ## 未検証の境界
 
-GitHubリポジトリ作成・push・Pages公開・Actions実行は未実施です。設定ファイルとローカルのサブパス解決を確認した段階です。
+GitHubリポジトリ作成・push・Actions・Pages公開・公開URLのChrome操作まで確認済みです。CIの12件はrunner上のビルド配信サーバーで実行し、公開URLでは上記の主要操作を別途確認しました。
 
-Safari・Firefox・独立Chrome、実スマートフォン／タブレット、実OSの日本語IME操作、実曲MP3・長時間音源の再生とデコードは未実施です。今回のブラウザ証拠はWindows Edge、生成WAV、合成IMEイベント、エミュレーション画面幅です。オフセットの個人差・音響遅延の実測や演奏との同期精度は自動テストでは保証しません。
+Safari・Firefox、実スマートフォン／タブレット、実OSの日本語IME操作、実曲MP3・長時間音源の再生とデコードは未実施です。今回のブラウザ証拠はローカルWindows Edge、CIのChromium、公開URLのWindows Chrome、生成WAV、合成IMEイベント、エミュレーション画面幅です。オフセットの個人差・音響遅延の実測や演奏との同期精度は自動テストでは保証しません。
 
 自動下書きはブラウザ保存容量・利用者設定・終了タイミングに依存し、終了時の保存完了や端末間同期は保証しません。JSON保存を併用してください。AIは契約とレビュー操作だけで、モデル・外部API・自動同期は実装も検証もしていません。

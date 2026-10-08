@@ -2,6 +2,10 @@
 
 楽曲の歌詞を聴きながらR/Eで時刻を入力し、編集・検証・SRT出力まで行う独立Webアプリです。React＋TypeScript＋Viteで構築。音源・歌詞・字幕はブラウザ内で処理し、API通信・クラウドアップロード・AI同期は実装していません。
 
+**[SYNTHIA SRT Studioを開く](https://synthia-creative.github.io/synthia-srt-studio/)**
+
+2026-10-08公開。GitHub Actionsで単体56件・E2E12件が成功し、公開URLで音源再生・波形・字幕編集・SRTダウンロードとPC／タブレット／スマホ幅の表示を確認しています。
+
 ## ローカル起動（Windows / PowerShell）
 
 Node.js 22.12以上（この環境では24.19.0）を使用します。
@@ -55,7 +59,7 @@ E2Eはビルド成果物を `/synthia-srt-studio/` に配置したローカル�
 
 `vite.config.ts` は `base: './'`。ビルド成果物は `dist/` で、リポジトリのサブパスへ配置可能です。`.github/workflows/pages.yml` は手動実行専用です。
 
-GitHubリポジトリ作成・push・公開はまだ行っていません。ローカル確認後に、利用者の承認を得て実施します。承認後の手順は [GITHUB_PAGES.md](docs/GITHUB_PAGES.md) を参照してください。
+公開リポジトリは [synthia-creative/synthia-srt-studio](https://github.com/synthia-creative/synthia-srt-studio) です。Pagesの配信元はGitHub Actionsに設定済みです。再公開の手順は [GITHUB_PAGES.md](docs/GITHUB_PAGES.md) を参照してください。
 
 ## 注意点
 
@@ -68,15 +72,16 @@ GitHubリポジトリ作成・push・公開はまだ行っていません。ロ�
 
 ## ドキュメント
 
-`releases/SYNTHIA-SRT-Studio-v1.0.0-static.zip` はGitHub Pages等へ配置する静的ビルド一式です。`releases/SYNTHIA-SRT-Studio-v1.0.0-source.zip` はソース・テスト・ドキュメント一式です（node_modules、.git、生成テストレポートは含みません）。ZIP内のindex.htmlをダブルクリックせず、HTTPサーバーから開いてください。
+`releases/SYNTHIA-SRT-Studio-v1.0.0-static.zip` はGitHub Pages等へ配置する静的ビルド一式です。ソースは [mainのZIP](https://github.com/synthia-creative/synthia-srt-studio/archive/refs/heads/main.zip) から取得できます。ローカル納品用の `releases/SYNTHIA-SRT-Studio-v1.0.0-source.zip` も作成しています（GitHubには登録しません）。node_modules、.git、生成テストレポートは含みません。ZIP内のindex.htmlをダブルクリックせず、HTTPサーバーから開いてください。
 
-新規Gitリポジトリは `main` で初期化済み、remote未設定です。作成者情報が未設定のため、初回コミットは未作成でファイルはステージ済みです。既存のGitユーザー設定は変更していません。
+独立Gitリポジトリの `main` は専用の `origin`（上記リポジトリ）へ登録済みです。コミットの作成者情報は新規リポジトリの初期コミットから引き継ぎ、コマンド単位で指定しています。既存のGitユーザー設定は変更していません。
 
 - [操作マニュアル](USER_GUIDE.md)
 - [設計](ARCHITECTURE.md)
 - [AI拡張仕様](AI_EXTENSION_SPEC.md)
 - [参考アプリ調査](docs/UPSTREAM_REVIEW.md)
 - [検証報告](docs/QA_REPORT.md)
+- [公開記録・会話まとめ](docs/2026-10-08_SYNTHIA_SRT_Studio公開記録.md)
 - [ライセンス・第三者表記](THIRD_PARTY_NOTICES.md)
 
 SRT Tap Timer v1.64.2（Copyright © 2026 cityedge / MIT）を参考にしています。元リポジトリを変更せず、互換操作の一部を整数ミリ秒のエンジンとして再実装しました。原作者の完全なMITライセンスとReactのライセンスはビルド成果物にも含めています。
