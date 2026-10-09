@@ -1,0 +1,143 @@
+{
+  "checkedAt": "2026-10-09T02:39:27.176Z",
+  "base": "https://synthia-creative.github.io/synthia-srt-studio/",
+  "passed": true,
+  "results": [
+    {
+      "file": "assets/index--rVq4YsE.js",
+      "status": 200,
+      "bytes": 306274,
+      "localHash": "de11b48820ac2dc0aa5294c8205fa48d61a19f228d1845974085e00faea49fa7",
+      "remoteHash": "de11b48820ac2dc0aa5294c8205fa48d61a19f228d1845974085e00faea49fa7",
+      "matches": true
+    },
+    {
+      "file": "assets/index-B3h9cjnr.css",
+      "status": 200,
+      "bytes": 22839,
+      "localHash": "e243af09a3fcb0262dc392493d4dd0c67340b60fd4c9165fea5478e6f3219ba6",
+      "remoteHash": "e243af09a3fcb0262dc392493d4dd0c67340b60fd4c9165fea5478e6f3219ba6",
+      "matches": true
+    },
+    {
+      "file": "index.html",
+      "status": 200,
+      "bytes": 601,
+      "localHash": "68bfe9e559234038fa5a2a7692281f9df242eb3c4fde80c0c8f48846ed692f60",
+      "remoteHash": "68bfe9e559234038fa5a2a7692281f9df242eb3c4fde80c0c8f48846ed692f60",
+      "matches": true
+    },
+    {
+      "file": "LICENSE-SRT-Tap-Timer.txt",
+      "status": 200,
+      "bytes": 1065,
+      "localHash": "f03f4ef87e79a98c5116b393df84ec5e9dc46b23988f4d96799dd2cc85062695",
+      "remoteHash": "f03f4ef87e79a98c5116b393df84ec5e9dc46b23988f4d96799dd2cc85062695",
+      "matches": true
+    },
+    {
+      "file": "manuals/FAQ.md",
+      "status": 200,
+      "bytes": 5184,
+      "localHash": "3a56b24dab9e142bd3d777794e4c3c4ba198d52add90d07714e41dea31936e3e",
+      "remoteHash": "3a56b24dab9e142bd3d777794e4c3c4ba198d52add90d07714e41dea31936e3e",
+      "matches": true
+    },
+    {
+      "file": "manuals/images/01-first-guide.png",
+      "status": 200,
+      "bytes": 124954,
+      "localHash": "29a68376f2245f47138ca8e93cc38debaab1fffa315721c79d8f2182b55b52f7",
+      "remoteHash": "29a68376f2245f47138ca8e93cc38debaab1fffa315721c79d8f2182b55b52f7",
+      "matches": true
+    },
+    {
+      "file": "manuals/images/02-lyrics.png",
+      "status": 200,
+      "bytes": 119124,
+      "localHash": "7ed581b54936a699ed9cc88e2c2b31a577f0f95276082ea6a90c6919f48536ae",
+      "remoteHash": "7ed581b54936a699ed9cc88e2c2b31a577f0f95276082ea6a90c6919f48536ae",
+      "matches": true
+    },
+    {
+      "file": "manuals/images/03-audio.png",
+      "status": 200,
+      "bytes": 127044,
+      "localHash": "0e5df576ba1c65e6a153e16633089913485176ac7d2c1cf43302de69cccce11c",
+      "remoteHash": "0e5df576ba1c65e6a153e16633089913485176ac7d2c1cf43302de69cccce11c",
+      "matches": true
+    },
+    {
+      "file": "manuals/images/04-timing.png",
+      "status": 200,
+      "bytes": 123767,
+      "localHash": "7f99cffa0601581d8510e845491aa4b039c6c57c572829697d85a6ab9f9213c9",
+      "remoteHash": "7f99cffa0601581d8510e845491aa4b039c6c57c572829697d85a6ab9f9213c9",
+      "matches": true
+    },
+    {
+      "file": "manuals/images/05-edit.png",
+      "status": 200,
+      "bytes": 147839,
+      "localHash": "ed0e0af320e4813809f167003fa566acfe0c1d36bc23e28c8c1c761def9d3489",
+      "remoteHash": "ed0e0af320e4813809f167003fa566acfe0c1d36bc23e28c8c1c761def9d3489",
+      "matches": true
+    },
+    {
+      "file": "manuals/images/06-existing.png",
+      "status": 200,
+      "bytes": 150091,
+      "localHash": "93638d9d124afb1fb288fac6582133b4ecc8bc731302d0cef4f32874894466bd",
+      "remoteHash": "93638d9d124afb1fb288fac6582133b4ecc8bc731302d0cef4f32874894466bd",
+      "matches": true
+    },
+    {
+      "file": "manuals/images/07-export.png",
+      "status": 200,
+      "bytes": 146679,
+      "localHash": "35916816595fdb2a65662fdf01e76c6af68beeba094c112f47460d4aaa0bfe0d",
+      "remoteHash": "35916816595fdb2a65662fdf01e76c6af68beeba094c112f47460d4aaa0bfe0d",
+      "matches": true
+    },
+    {
+      "file": "manuals/index.html",
+      "status": 200,
+      "bytes": 24344,
+      "localHash": "6bef7f5c4c7cf241c921bfd62fecaeaae668be729abe8bf1202cfc6cd912ceea",
+      "remoteHash": "6bef7f5c4c7cf241c921bfd62fecaeaae668be729abe8bf1202cfc6cd912ceea",
+      "matches": true
+    },
+    {
+      "file": "manuals/QUICK_START.md",
+      "status": 200,
+      "bytes": 3071,
+      "localHash": "2b0f49d43fd527fe85baa06326f1cf14a5928df79fec3c24b9bc981f173a2591",
+      "remoteHash": "2b0f49d43fd527fe85baa06326f1cf14a5928df79fec3c24b9bc981f173a2591",
+      "matches": true
+    },
+    {
+      "file": "manuals/SHORTCUTS.md",
+      "status": 200,
+      "bytes": 2560,
+      "localHash": "86415276206c9d9c24e7eeac2d2be2865026c339fe8522098a048a1096a105c6",
+      "remoteHash": "86415276206c9d9c24e7eeac2d2be2865026c339fe8522098a048a1096a105c6",
+      "matches": true
+    },
+    {
+      "file": "manuals/USER_GUIDE.md",
+      "status": 200,
+      "bytes": 19436,
+      "localHash": "87d9dc65e0ed45b2144a45c042130170f99b9759b3bc21a3fc5e534173e47e0d",
+      "remoteHash": "87d9dc65e0ed45b2144a45c042130170f99b9759b3bc21a3fc5e534173e47e0d",
+      "matches": true
+    },
+    {
+      "file": "THIRD_PARTY_NOTICES.txt",
+      "status": 200,
+      "bytes": 4633,
+      "localHash": "3458b26cc0c0f00fe849bdff8aa0f00ead856ddfd5f8a04675011bcd21a6eaca",
+      "remoteHash": "3458b26cc0c0f00fe849bdff8aa0f00ead856ddfd5f8a04675011bcd21a6eaca",
+      "matches": true
+    }
+  ]
+}

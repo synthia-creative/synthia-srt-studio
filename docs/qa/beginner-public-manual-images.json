@@ -1,0 +1,41 @@
+{
+  "images": [
+    {
+      "complete": true,
+      "src": "images/01-first-guide.png",
+      "width": 1440
+    },
+    {
+      "complete": true,
+      "src": "images/02-lyrics.png",
+      "width": 1440
+    },
+    {
+      "complete": true,
+      "src": "images/03-audio.png",
+      "width": 1440
+    },
+    {
+      "complete": true,
+      "src": "images/04-timing.png",
+      "width": 1440
+    },
+    {
+      "complete": true,
+      "src": "images/05-edit.png",
+      "width": 1440
+    },
+    {
+      "complete": true,
+      "src": "images/06-existing.png",
+      "width": 1440
+    },
+    {
+      "complete": true,
+      "src": "images/07-export.png",
+      "width": 1440
+    }
+  ],
+  "title": "SYNTHIA SRT Studio 初心者向け完全マニュアル",
+  "url": "https://synthia-creative.github.io/synthia-srt-studio/manuals/index.html#first"
+}

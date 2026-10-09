@@ -1,0 +1,58 @@
+[
+  {
+    "topic": "はじめての使い方",
+    "image": {
+      "complete": true,
+      "src": "./manuals/images/01-first-guide.png",
+      "width": 1440
+    }
+  },
+  {
+    "topic": "歌詞の入力方法",
+    "image": {
+      "complete": true,
+      "src": "./manuals/images/02-lyrics.png",
+      "width": 1440
+    }
+  },
+  {
+    "topic": "音源の読み込み",
+    "image": {
+      "complete": true,
+      "src": "./manuals/images/03-audio.png",
+      "width": 1440
+    }
+  },
+  {
+    "topic": "R/Eキーの操作",
+    "image": {
+      "src": "./manuals/images/04-timing.png",
+      "complete": true,
+      "width": 1440
+    }
+  },
+  {
+    "topic": "タイミング修正",
+    "image": {
+      "complete": true,
+      "src": "./manuals/images/05-edit.png",
+      "width": 1440
+    }
+  },
+  {
+    "topic": "既存SRTの修正",
+    "image": {
+      "complete": true,
+      "src": "./manuals/images/06-existing.png",
+      "width": 1440
+    }
+  },
+  {
+    "topic": "ファイル保存",
+    "image": {
+      "complete": true,
+      "src": "./manuals/images/07-export.png",
+      "width": 1440
+    }
+  }
+]

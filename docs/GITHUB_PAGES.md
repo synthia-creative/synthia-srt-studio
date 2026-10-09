@@ -4,7 +4,9 @@
 
 公開URL：[https://synthia-creative.github.io/synthia-srt-studio/](https://synthia-creative.github.io/synthia-srt-studio/)
 
-初回公開は [Publish GitHub Pages #1](https://github.com/synthia-creative/synthia-srt-studio/actions/runs/37720393805) で成功しました。公開コードのSHAは `762613f0c11180e194bd713d74379c76b9a23fbe`。build 52秒、deploy 10秒、全体1分13秒。後続のコミットは公開記録・スクリーンショット・説明文の更新のみで、アプリのコードやビルド設定は同一です。
+初回公開は [Publish GitHub Pages #1](https://github.com/synthia-creative/synthia-srt-studio/actions/runs/37720393805) で成功しました。初回の公開コードSHAは `762613f0c11180e194bd713d74379c76b9a23fbe`。build 52秒、deploy 10秒、全体1分13秒。その直後の記録コミット `c75173e` は説明と写真のみの更新でした。
+
+2026-10-09の初心者ヘルプ追加版は [Publish GitHub Pages #5](https://github.com/synthia-creative/synthia-srt-studio/actions/runs/37875456493) で公開成功。公開コードSHAは `677a06b9bc1e37c36acf69e2706bbde983077908`。単体56件、E2E19件、共通説明・写真の検査が成功し、build 66秒／deploy 8秒、全体1分21秒です。公開17ファイルはHTTP 200でローカルdistとSHA-256が一致。アプリ内ヘルプとWebマニュアルの写真7枚もChromeで表示確認しました。詳細は [BEGINNER_HELP_QA.md](BEGINNER_HELP_QA.md) を参照してください。
 
 更新・再公開の手順：
 

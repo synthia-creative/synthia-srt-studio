@@ -9,6 +9,7 @@
 | 型検査・静的ビルド | 成功。54モジュール、CSS22.84kB、JS306.27kB |
 | 単体テスト | 3ファイル、56件成功 |
 | 通常E2E | 19件成功（47.7秒）。写真更新用1件は意図的にスキップ |
+| Chromeの追加検証 | ガイド中のサイズ変更、全5段階の強調とカード非重複、ヘルプ幅の専用テスト1件成功（2.9秒） |
 | 実画面の撮影 | 専用シナリオ成功。7枚のPNGを撮影し、画像を開いて確認 |
 | 共通説明の検査 | 4つのMarkdown、公開HTML、公開写真コピーとの一致を確認 |
 | 初回ガイド | 5段階の実UI強調、次へ・戻る・スキップ・終了・Esc、既読状態、再表示を確認 |
@@ -43,6 +44,21 @@ Windows Edgeを用いた実ブラウザテストです。GitHub ActionsはChromi
 | `docs/images/07-export.png` | 検証済みSRTのファイル名とダウンロード画面 |
 
 音源は生成した8秒のサイン波、歌詞は検証用です。マニュアルの説明は `src/help/content.json` と同じ内容から作成しました。UIが変わる場合の手順は [HELP_MAINTENANCE.md](HELP_MAINTENANCE.md) にあります。
+
+## GitHub Pagesで確認した結果
+
+公開URL：[SYNTHIA SRT Studio](https://synthia-creative.github.io/synthia-srt-studio/)／[画像付き完全マニュアル](https://synthia-creative.github.io/synthia-srt-studio/manuals/)。[Actions #5](https://github.com/synthia-creative/synthia-srt-studio/actions/runs/37875456493) はSuccess。公開コードSHAは `677a06b9bc1e37c36acf69e2706bbde983077908`。build 66秒、deploy 8秒、全体1分21秒。
+
+- CIの単体56件、E2E19件（28.5秒）、型検査・build・共通文書検査が成功。写真撮影用1件は予定どおりスキップ。
+- 最終公開のHTML・CSS・JS・ライセンス・4文書・Webマニュアル・PNG7枚、計17ファイルがHTTP 200。SHA-256はローカルdistと全件一致。
+- 公開Chromeで下書きを保持して復元、ガイド初回表示と再表示、終了、ヘルプ10項目を確認。ヘルプ内の写真7枚は読み込み完了・自然幅1440pxで表示。
+- Webマニュアルも全7枚が読み込み完了・自然幅1440px。画像と対応する手順を確認。
+- ガイドのR/E段階を開いたまま1440×1000から390×844へ変更し、強調枠が画面内に残ることを確認。枠の縦範囲は494.4〜702.8px、説明は12〜362.4pxで重ならない。
+- 公開アプリのChrome error／warnログは空。検証後は一時的な画面幅指定を解除。
+
+証拠は `docs/qa/beginner-public-files.json`（17ファイルのハッシュ）、`beginner-public-runtime.json`（最終コード・強調枠・画像・ログ）、`beginner-public-help-images.json`、`beginner-public-manual-images.json`。画面写真は `beginner-public-guide.jpg`、`beginner-public-help.jpg`、`beginner-public-mobile-guide.jpg`、`beginner-public-manual.jpg`、`beginner-pages-success.jpg`。
+
+公開後の報告コミットは、説明・検証記録・写真のみを追加します。アプリ・共通説明・公開マニュアル・静的ZIPの内容は上記の公開コードと同一です。
 
 ## 確認の範囲
 
