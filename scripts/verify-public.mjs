@@ -11,7 +11,7 @@ const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const results = await Promise.all((await files('dist')).map(async file => {
   const relative = path.relative('dist', file).replaceAll('\\', '/'), response = await fetch(new URL(relative, base), { signal: AbortSignal.timeout(30000) });
   const bytes = Buffer.from(await response.arrayBuffer()), localHash = hash(await fs.readFile(file)), remoteHash = hash(bytes);
-  return { file: relative, status: response.status, bytes: bytes.length, localHash, remoteHash, matches: response.ok() && localHash === remoteHash };
+  return { file: relative, status: response.status, bytes: bytes.length, localHash, remoteHash, matches: response.ok && localHash === remoteHash };
 }));
 const passed = results.every(item => item.matches);
 await fs.mkdir('docs/qa', { recursive: true });

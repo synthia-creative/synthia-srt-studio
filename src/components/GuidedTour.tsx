@@ -25,15 +25,18 @@ export function GuidedTour({ step, onStep, onClose }: { step: number; onStep: (s
       if (!rects.length) { setBox(null); return; }
       const x = Math.max(4, Math.min(...rects.map(r => r.left)) - 6), y = Math.max(4, Math.min(...rects.map(r => r.top)) - 6);
       const right = Math.min(innerWidth - 4, Math.max(...rects.map(r => r.right)) + 6), bottom = Math.min(innerHeight - 4, Math.max(...rects.map(r => r.bottom)) + 6);
-      setBox({ x, y, width: Math.max(0, right - x), height: Math.max(0, bottom - y) });
+      if (right <= x || bottom <= y) { setBox(null); return; }
+      setBox({ x, y, width: right - x, height: bottom - y });
       setCardAtTop((y + bottom) / 2 > innerHeight * .56);
     };
     const schedule = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(measure); };
-    targets[0]?.scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'instant' });
+    const reveal = () => targets[0]?.scrollIntoView({ block: innerWidth <= 900 ? 'start' : 'center', inline: 'nearest', behavior: 'instant' });
+    const resize = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(() => { reveal(); measure(); }); };
+    reveal();
     schedule(); titleRef.current?.focus({ preventScroll: true });
     const observer = new ResizeObserver(schedule); targets.filter(Boolean).forEach(element => observer.observe(element));
-    window.addEventListener('resize', schedule); window.addEventListener('scroll', schedule, true);
-    return () => { cancelAnimationFrame(frame); observer.disconnect(); window.removeEventListener('resize', schedule); window.removeEventListener('scroll', schedule, true); };
+    window.addEventListener('resize', resize); window.addEventListener('scroll', schedule, true);
+    return () => { cancelAnimationFrame(frame); observer.disconnect(); window.removeEventListener('resize', resize); window.removeEventListener('scroll', schedule, true); };
   }, [item]);
   return <dialog className="guide-dialog" ref={dialogRef} onCancel={onClose} onKeyDown={keepDialogFocus} aria-label="はじめての使い方" aria-describedby="guide-description">
     <svg className="guide-shade" aria-hidden="true" width="100%" height="100%"><defs><mask id={maskId}><rect width="100%" height="100%" fill="white" />{box && <rect {...box} rx="6" fill="black" />}</mask></defs><rect width="100%" height="100%" fill="rgba(2,9,18,.80)" mask={`url(#${maskId})`} />{box && <rect {...box} rx="6" fill="none" stroke="#85efff" strokeWidth="3" data-testid="guide-highlight" data-target={item.id} />}</svg>

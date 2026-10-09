@@ -75,7 +75,14 @@ test('keyboard tooltips and destructive confirmations are accessible and cancel 
 
 test('mobile tour and help keep real targets visible and page within 320/390/768 widths', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 }); await openFresh(page);
-  for (let step = 0; step < 5; step++) { await expect(page.getByTestId('guide-highlight')).toHaveAttribute('data-target', content.guideSteps[step].id); expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true); const rect = await page.getByTestId('guide-highlight').boundingBox(); expect(rect!.x).toBeGreaterThanOrEqual(0); expect(rect!.y).toBeGreaterThanOrEqual(0); expect(rect!.y + rect!.height).toBeLessThanOrEqual(844); if (step < 4) await tour(page).getByRole('button', { name: '次へ' }).click(); }
+  for (let step = 0; step < 5; step++) {
+    await expect(page.getByTestId('guide-highlight')).toHaveAttribute('data-target', content.guideSteps[step].id);
+    if (step === 2) { await page.setViewportSize({ width: 1440, height: 1000 }); await page.setViewportSize({ width: 390, height: 844 }); }
+    await expect.poll(async () => { const rect = await page.getByTestId('guide-highlight').boundingBox(); return !!rect && rect.width > 20 && rect.height > 20 && rect.x >= 0 && rect.y >= 0 && rect.y + rect.height <= 844; }).toBe(true);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await expect.poll(async () => { const rect = await page.getByTestId('guide-highlight').boundingBox(), card = await page.locator('.guide-card').boundingBox(); return !!rect && !!card && (rect.y + rect.height < card.y || card.y + card.height < rect.y || rect.x + rect.width < card.x || card.x + card.width < rect.x); }).toBe(true);
+    if (step < 4) await tour(page).getByRole('button', { name: '次へ' }).click();
+  }
   await tour(page).getByRole('button', { name: '終了' }).click(); await openHelp(page);
   for (const width of [320, 390, 768]) { await page.setViewportSize({ width, height: 844 }); await expect(page.getByRole('button', { name: '閉じる', exact: true })).toBeVisible(); expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true); }
   await page.getByRole('navigation', { name: 'ヘルプの目次' }).getByRole('button', { name: 'よくある質問', exact: true }).click(); await page.getByText('SRTとは何ですか？', { exact: true }).click(); await expect(page.getByRole('region', { name: '使い方の説明' })).toContainText(content.faq[0].a);
