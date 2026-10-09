@@ -77,7 +77,7 @@ test('mobile tour and help keep real targets visible and page within 320/390/768
   await page.setViewportSize({ width: 390, height: 844 }); await openFresh(page);
   for (let step = 0; step < 5; step++) {
     await expect(page.getByTestId('guide-highlight')).toHaveAttribute('data-target', content.guideSteps[step].id);
-    if (step === 2) { await page.setViewportSize({ width: 1440, height: 1000 }); await page.setViewportSize({ width: 390, height: 844 }); }
+    if (step === 2) { await page.setViewportSize({ width: 1440, height: 1000 }); await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))); await page.setViewportSize({ width: 390, height: 844 }); }
     await expect.poll(async () => { const rect = await page.getByTestId('guide-highlight').boundingBox(); return !!rect && rect.width > 20 && rect.height > 20 && rect.x >= 0 && rect.y >= 0 && rect.y + rect.height <= 844; }).toBe(true);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     await expect.poll(async () => { const rect = await page.getByTestId('guide-highlight').boundingBox(), card = await page.locator('.guide-card').boundingBox(); return !!rect && !!card && (rect.y + rect.height < card.y || card.y + card.height < rect.y || rect.x + rect.width < card.x || card.x + card.width < rect.x); }).toBe(true);

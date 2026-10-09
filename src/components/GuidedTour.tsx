@@ -13,7 +13,7 @@ export function GuidedTour({ step, onStep, onClose }: { step: number; onStep: (s
     return () => { dialog.close(); if (opener?.isConnected) opener.focus({ preventScroll: true }); };
   }, []);
   useLayoutEffect(() => {
-    let frame = 0;
+    let frame = 0, revealPending = false;
     const candidates = [...document.querySelectorAll<HTMLElement>(item.selector)];
     // 広いパネルより、実際の編集欄を優先します。空の一覧では見出しを案内します。
     const targets = candidates.filter(element => !candidates.some(other => other !== element && element.contains(other)));
@@ -29,12 +29,13 @@ export function GuidedTour({ step, onStep, onClose }: { step: number; onStep: (s
       setBox({ x, y, width: right - x, height: bottom - y });
       setCardAtTop((y + bottom) / 2 > innerHeight * .56);
     };
-    const schedule = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(measure); };
     const reveal = () => targets[0]?.scrollIntoView({ block: innerWidth <= 900 ? 'start' : 'center', inline: 'nearest', behavior: 'instant' });
-    const resize = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(() => { reveal(); measure(); }); };
+    // 同時に届くサイズ・スクロール通知で、対象への移動を取り消さないようにします。
+    const schedule = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(() => { if (revealPending) { revealPending = false; reveal(); } measure(); }); };
+    const resize = () => { revealPending = true; schedule(); };
     reveal();
     schedule(); titleRef.current?.focus({ preventScroll: true });
-    const observer = new ResizeObserver(schedule); targets.filter(Boolean).forEach(element => observer.observe(element));
+    const observer = new ResizeObserver(resize); targets.filter(Boolean).forEach(element => observer.observe(element));
     window.addEventListener('resize', resize); window.addEventListener('scroll', schedule, true);
     return () => { cancelAnimationFrame(frame); observer.disconnect(); window.removeEventListener('resize', resize); window.removeEventListener('scroll', schedule, true); };
   }, [item]);
