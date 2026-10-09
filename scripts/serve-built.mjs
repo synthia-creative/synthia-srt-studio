@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 const root = path.resolve('dist');
 const prefix = '/synthia-srt-studio/';
-const mime = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.txt': 'text/plain; charset=utf-8' };
+const mime = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.txt': 'text/plain; charset=utf-8', '.md': 'text/markdown; charset=utf-8', '.png': 'image/png' };
 http.createServer((req, res) => {
   const url = new URL(req.url ?? '/', 'http://localhost');
   if (!url.pathname.startsWith(prefix)) { res.writeHead(404); res.end('Not found'); return; }

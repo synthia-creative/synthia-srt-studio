@@ -4,12 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --host 127.0.0.1",
+    "dev": "npm run docs:generate && vite --host 127.0.0.1",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "npm run build && playwright test",
-    "build": "npm run typecheck && node scripts/prepare-notices.mjs && vite build",
+    "build": "npm run typecheck && npm run docs:generate && node scripts/prepare-notices.mjs && vite build",
+    "docs:generate": "node scripts/generate-help.mjs",
+    "docs:check": "node scripts/generate-help.mjs --check",
     "preview": "vite preview --host 127.0.0.1"
   },
   "dependencies": { "react": "^19.2.0", "react-dom": "^19.2.0" },

@@ -6,6 +6,8 @@
 
 2026-10-08公開。GitHub Actionsで単体56件・E2E12件が成功し、公開URLで音源再生・波形・字幕編集・SRTダウンロードとPC／タブレット／スマホ幅の表示を確認しています。
 
+2026-10-09に初心者向けガイド・ヘルプと画像付きマニュアルを追加。ローカルでは単体56件、制作・ヘルプのE2E19件、実画面撮影1件、説明と画像の一致検査が成功しています。更新の検証記録は [初心者ヘルプ検証報告](docs/BEGINNER_HELP_QA.md) にまとめています。
+
 ## ローカル起動（Windows / PowerShell）
 
 Node.js 22.12以上（この環境では24.19.0）を使用します。
@@ -21,6 +23,8 @@ npm.cmd run dev
 macOS/Linuxでは `npm.cmd` を `npm` に読み替えてください。依存関係はこのフォルダの `node_modules` のみに保存されます。
 
 ## 基本操作
+
+初回は5段階の「はじめての使い方」が開きます。途中で終了しても、ヘッダーの「使い方」からいつでも再表示できます。ヘルプを開いても編集中の内容は保持され、案内中は制作ショートカットが停止します。
 
 1. 歌詞を貼り付けるかTXTを読み込み、「字幕行を生成」を押す。
 2. MP3/WAVを読み込み、音源を再生する。
@@ -41,6 +45,7 @@ macOS/Linuxでは `npm.cmd` を `npm` に読み替えてください。依存関
 - 標準・未完成SRTの読み込み、UTF-8／BOM出力、重複警告、未完成・不正字幕の出力停止
 - JSON保存・検証付き復元、音源の再選択と保存位置への復帰、IndexedDB自動下書き
 - ロック・手動確認フラグ、将来の候補推定用インターフェース（モデルや推論処理なし）
+- 初回ガイド、10項目のアプリ内ヘルプ、日本語ツールチップ、時刻クリア・行削除の確認表示
 
 ## 検証
 
@@ -49,6 +54,7 @@ npm.cmd run typecheck
 npm.cmd test
 npm.cmd run build
 npm.cmd run test:e2e
+npm.cmd run docs:check
 ```
 
 Windowsでは既存のMicrosoft EdgeをPlaywrightで使います。LinuxのCIでは事前に `npx playwright install --with-deps chromium` を実行してください。WindowsでPlaywright Chromiumを使う場合は、事前にブラウザを用意して `$env:BROWSER_CHANNEL = 'chromium'` を設定します。
@@ -76,7 +82,12 @@ E2Eはビルド成果物を `/synthia-srt-studio/` に配置したローカル�
 
 独立Gitリポジトリの `main` は専用の `origin`（上記リポジトリ）へ登録済みです。コミットの作成者情報は新規リポジトリの初期コミットから引き継ぎ、コマンド単位で指定しています。既存のGitユーザー設定は変更していません。
 
-- [操作マニュアル](USER_GUIDE.md)
+- [初心者向け完全マニュアル](USER_GUIDE.md)
+- [最短操作ガイド](QUICK_START.md)
+- [ショートカット一覧](SHORTCUTS.md)
+- [よくある質問・トラブル対処](FAQ.md)
+- [画像付きWebマニュアル](https://synthia-creative.github.io/synthia-srt-studio/manuals/)
+- [ヘルプとマニュアルの更新手順](docs/HELP_MAINTENANCE.md)
 - [設計](ARCHITECTURE.md)
 - [AI拡張仕様](AI_EXTENSION_SPEC.md)
 - [参考アプリ調査](docs/UPSTREAM_REVIEW.md)

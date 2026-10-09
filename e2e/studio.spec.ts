@@ -11,6 +11,8 @@ function wav(seconds = 8): Buffer {
 async function start(page: Page) {
   await page.goto('./'); await expect(page.getByRole('heading', { name: 'SYNTHIA SRT Studio' })).toBeVisible();
   await expect(page.getByRole('status').filter({ hasText: '下書き' })).not.toContainText('確認中');
+  await expect(page.getByRole('dialog', { name: 'はじめての使い方', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'スキップ', exact: true }).click();
 }
 async function generate(page: Page, lyrics = '[Verse]\n夜の向こうへ\nKeep the light\n[Chorus]\n星をつないで') {
   await page.getByLabel('歌詞を貼り付け', { exact: true }).fill(lyrics); await page.getByRole('button', { name: '字幕行を生成', exact: true }).click();
@@ -88,7 +90,7 @@ test('bulk selection/shift, boundary operation, lock, add/delete/reorder and Und
   await page.getByRole('button', { name: '2行目の開始を編集' }).click(); await page.getByRole('button', { name: '前行の終了を合わせる', exact: true }).click(); await expect(page.getByTestId('subtitle-row-1')).toContainText('00:00:03,100');
   await page.getByLabel('ロック', { exact: true }).check(); await expect(page.getByRole('button', { name: '変更を反映', exact: true })).toBeDisabled(); await page.getByLabel('ロック', { exact: true }).uncheck();
   await page.getByRole('button', { name: '上へ', exact: true }).click(); await expect(page.getByTestId('subtitle-row-1')).toContainText('Keep the light'); await page.getByRole('button', { name: '行を追加', exact: true }).click(); await expect(page.getByTestId('subtitle-row-3')).toBeVisible();
-  await page.getByLabel('全行を選択', { exact: true }).uncheck(); await page.getByRole('button', { name: '削除', exact: true }).click(); await expect(page.getByTestId('subtitle-row-3')).toHaveCount(0); await page.getByRole('button', { name: 'Undo', exact: true }).click(); await expect(page.getByTestId('subtitle-row-3')).toBeVisible();
+  await page.getByLabel('全行を選択', { exact: true }).uncheck(); await page.getByRole('button', { name: '削除', exact: true }).click(); await page.getByRole('button', { name: '実行する', exact: true }).click(); await expect(page.getByTestId('subtitle-row-3')).toHaveCount(0); await page.getByRole('button', { name: 'Undo', exact: true }).click(); await expect(page.getByTestId('subtitle-row-3')).toBeVisible();
 });
 test('GitHub Pages nested path resolves compiled assets and MIT notices', async ({ page, request }) => {
   const failures: string[] = []; page.on('requestfailed', request => failures.push(request.url())); await start(page);

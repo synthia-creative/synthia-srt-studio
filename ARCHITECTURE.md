@@ -17,6 +17,7 @@ UIの再生表示は音源フックが管理し、字幕エンジンと分離し
 | `src/formats` | 歌詞・SRT・プロジェクトJSON、文字コード読込、ファイル名・ダウンロード |
 | `src/components` | モーダル、波形、字幕一覧、行編集、設定 |
 | `src/storage` | IndexedDBの下書き読み書き |
+| `src/help` | ガイド・ヘルプ・ツールチップ・文書の共通説明、ガイド既読状態 |
 | `src/providers` | 推定候補・レビュー・Provider契約。v1は実処理なし |
 | `src/tests` / `e2e` | Vitestによる変換・操作テスト / Playwrightによる実ブラウザ操作 |
 
@@ -45,5 +46,7 @@ UIの再生表示は音源フックが管理し、字幕エンジンと分離し
 64MiB／10分を超えるファイルは解析を省略し、HTMLAudioElementでの再生・シークを継続します。波形失敗時もクリックで移動できます。再生カーソルはrequestAnimationFrameで表示し、区間ループはフレーム更新とendedイベントで処理します。ブラウザのバックグラウンド制限によりループに遅れが出る場合があります。
 
 ## 配布
+
+`src/help/content.json` から4つのMarkdownと公開用HTMLを生成します。`docs/images/` の実画面写真を `public/manuals/images/` にコピーし、ビルド時にdistへ同梱します。`docs:check` で説明と写真の一致を確認します。UIのヘルプ・ガイドは字幕エンジンを変更せず、開いている間は制作キーを停止します。未反映の行編集欄もアンマウントしません。ネイティブdialogとTabの境界制御でフォーカスを保ちます。
 
 バックエンド・認証・APIキー・外部フォント・CDNスクリプトは不要。Viteの相対baseとルーターを持たない構成でGitHub Pagesのサブパスに対応します。`public/` のMIT表記をdistへ同梱します。公開ワークフローは手動実行のみです。

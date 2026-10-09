@@ -8,12 +8,12 @@
 
 更新・再公開の手順：
 
-1. この専用リポジトリ内で変更し、ローカルの型検査・単体・E2Eを確認する。
+1. この専用リポジトリ内で変更し、説明と写真を更新して `npm run docs:generate` / `npm run docs:check`、型検査・単体・E2Eを確認する。
 2. `origin` の `main` へコミットをpushする。既存の別プロジェクトのremoteを流用しない。
 3. リポジトリのSettings → Pages → Sourceで「GitHub Actions」を選ぶ。
 4. Actionsの「Publish GitHub Pages」を **Run workflow** で手動実行する。
 5. ワークフロー内の単体テスト・ビルド・E2E成功後にdistが公開される。
-6. 実公開URLでCSS／JS／ライセンス、音源選択、ダウンロード、モバイルを再確認する。
+6. 実公開URLでCSS／JS／ライセンス、音源選択、ダウンロード、モバイル、ヘルプ内と `/manuals/` の写真7枚を再確認する。
 
 自動push公開は設定していません。ワークフローは `workflow_dispatch` 専用です。GitHub Pages環境への承認ルールは必要に応じてリポジトリ側で設定できます。
 

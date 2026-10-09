@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import type { SubtitleRow } from '../core/types';
 import type { SubtitleEngine } from '../core/engine';
 import { formatTime, parseTime } from '../core/time';
-export function RowEditor({ row, number, engine, detail, run }: {
+import { hint } from '../help/hints';
+export function RowEditor({ row, number, engine, detail, run, confirmEdit }: {
   row: SubtitleRow; number: number; engine: SubtitleEngine; detail: boolean; run: (operation: () => void, message?: string) => void;
+  confirmEdit: (title: string, text: string, action: () => void) => void;
 }) {
   const [start, setStart] = useState(''), [end, setEnd] = useState(''), [text, setText] = useState('');
   useEffect(() => { setStart(formatTime(row.startMs)); setEnd(formatTime(row.endMs)); setText(row.text); }, [row.id, row.startMs, row.endMs, row.text]);
@@ -17,11 +19,11 @@ export function RowEditor({ row, number, engine, detail, run }: {
       <label>開始時刻<input aria-label="開始時刻" value={start} disabled={row.locked} onChange={e => setStart(e.target.value)} placeholder="00:00:00,000" /></label>
       <label>終了時刻<input aria-label="終了時刻" value={end} disabled={row.locked} onChange={e => setEnd(e.target.value)} placeholder="00:00:00,000" /></label>
       <label className="editor-lyric">歌詞<textarea aria-label="選択行の歌詞" value={text} maxLength={1000000} disabled={row.locked} onChange={e => setText(e.target.value)} rows={2} /></label>
-      <button className="primary" disabled={row.locked} onClick={() => run(() => engine.edit(row.id, { text, startMs: parseTime(start), endMs: parseTime(end) }), '選択行を反映しました。')}>変更を反映</button>
+      <button {...hint('apply')} className="primary" disabled={row.locked} onClick={() => run(() => engine.edit(row.id, { text, startMs: parseTime(start), endMs: parseTime(end) }), '選択行を反映しました。')}>変更を反映</button>
     </div>
-    {detail && <><div className="nudge-controls">{(['startMs', 'endMs'] as const).map(field => <div key={field}><span>{field === 'startMs' ? '開始' : '終了'}の微調整</span>{[-1000, -100, -10, 10, 100, 1000].map(delta => <button key={delta} disabled={row.locked || row[field] === null} onClick={() => run(() => engine.nudge(row.id, field, delta))}>{delta > 0 ? '+' : '−'}{Math.abs(delta) === 1000 ? '1秒' : `${Math.abs(delta)}ms`}</button>)}</div>)}</div>
+    {detail && <><div className="nudge-controls">{(['startMs', 'endMs'] as const).map(field => <div key={field}><span>{field === 'startMs' ? '開始' : '終了'}の微調整</span>{[-1000, -100, -10, 10, 100, 1000].map(delta => <button key={delta} aria-label={`${field === 'startMs' ? '開始' : '終了'}を${Math.abs(delta) / 1000}秒${delta < 0 ? '早める' : '遅らせる'}`} disabled={row.locked || row[field] === null} onClick={() => run(() => engine.nudge(row.id, field, delta), `${field === 'startMs' ? '開始' : '終了'}を${Math.abs(delta) / 1000}秒${delta < 0 ? '早めました。' : '遅らせました。'}`)}>{delta > 0 ? '+' : '−'}{Math.abs(delta) / 1000}秒</button>)}</div>)}</div>
     <div className="inline-actions"><button disabled={row.locked} onClick={() => run(() => engine.align(row.id, 'previous'))}>前行の終了を合わせる</button><button disabled={row.locked} onClick={() => run(() => engine.align(row.id, 'next'))}>次行の開始を合わせる</button>
-      <button disabled={row.locked} onClick={() => run(() => engine.clear([row.id], 'startMs'))}>開始をクリア</button><button disabled={row.locked} onClick={() => run(() => engine.clear([row.id], 'endMs'))}>終了をクリア</button><button disabled={row.locked} onClick={() => run(() => engine.clear([row.id], 'both'))}>両時刻をクリア</button>
+      {(['startMs', 'endMs', 'both'] as const).map(field => { const name = field === 'startMs' ? '開始' : field === 'endMs' ? '終了' : '両時刻'; return <button key={field} {...hint('clear')} disabled={row.locked} onClick={() => confirmEdit(`${name}をクリアする`, `${number}行目の${name}を未設定に戻します。`, () => run(() => engine.clear([row.id], field), `${name}を未設定に戻しました。`))}>{name}をクリア</button>; })}
     </div></>}
   </section>;
 }

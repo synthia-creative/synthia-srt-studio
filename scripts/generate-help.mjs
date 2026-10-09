@@ -1,0 +1,36 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+const content = JSON.parse(await fs.readFile('src/help/content.json', 'utf8'));
+const check = process.argv.includes('--check');
+const escape = text => String(text).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
+const table = () => '| キー | できること |\n| --- | --- |\n' + content.shortcuts.map(item => `| ${item.key} | ${item.text} |`).join('\n');
+const answers = items => items.map(item => `### ${item.q}\n\n${item.a}`).join('\n\n');
+const figure = item => item.image ? `\n\n![${item.caption}](docs/images/${item.image})\n\n${item.caption}` : '';
+const section = item => `## ${item.title}\n\n${item.paragraphs.join('\n\n')}${item.steps.length ? '\n\n' + item.steps.map((text, i) => `${i + 1}. ${text}`).join('\n') : ''}${item.id === 'shortcuts' ? '\n\n' + table() : ''}${item.id === 'faq' ? '\n\n' + answers(content.faq) : ''}${item.id === 'troubleshooting' ? '\n\n' + answers(content.troubleshooting) : ''}${figure(item)}`;
+const sourceNote = '\n\n---\n\n説明の更新元は `src/help/content.json` です。アプリ内ヘルプとこの説明は同じデータから作ります。UI・機能・キーを変更した場合は説明も更新し、実画面を撮り直して `npm run docs:generate` と `npm run docs:check` を実行してください。\n';
+const first = content.topics[0], shortcut = content.topics.find(item => item.id === 'shortcuts');
+const markdowns = {
+  'USER_GUIDE.md': `# ${content.title}\n\n${content.edition}\n\n${content.intro}\n\n[アプリを開く](https://synthia-creative.github.io/synthia-srt-studio/) · [最短操作ガイド](QUICK_START.md) · [ショートカット](SHORTCUTS.md) · [よくある質問](FAQ.md)\n\n画面写真は完成したアプリを操作して撮影しています。画像内の音源・歌詞は動作確認用で、実際の楽曲や作品ではありません。\n\n${content.topics.map(section).join('\n\n')}${sourceNote}`,
+  'QUICK_START.md': `# SYNTHIA SRT Studio 最短操作ガイド\n\n${content.edition}\n\n用意するもの：MP3またはWAVの音楽ファイル、コピーできる歌詞。\n\nヘッダーの「使い方」から、5段階のはじめてガイドを再表示できます。説明を閉じてから、次の操作を行います。\n\n${content.guideSteps.map((item, i) => { const topic = content.topics.find(topic => topic.id === (item.id === 'export' ? 'save' : item.id)); return `## ${i + 1}. ${item.title}\n\n${item.body}\n\n${item.note}${figure(topic)}`; }).join('\n\n')}\n\n詳しい操作は [完全マニュアル](USER_GUIDE.md)、困ったときは [FAQ](FAQ.md) を確認してください。${sourceNote}`,
+  'SHORTCUTS.md': `# SYNTHIA SRT Studio ショートカット一覧\n\n${content.edition}\n\n${shortcut.paragraphs.join('\n\n')}\n\n${table()}\n\n[完全マニュアル](USER_GUIDE.md) · [最短操作ガイド](QUICK_START.md)${sourceNote}`,
+  'FAQ.md': `# SYNTHIA SRT Studio よくある質問\n\n${content.edition}\n\n${answers(content.faq)}\n\n## トラブル対処\n\n${answers(content.troubleshooting)}\n\n[完全マニュアル](USER_GUIDE.md) · [ショートカット](SHORTCUTS.md)${sourceNote}`
+};
+const htmlSection = item => `<section id="${escape(item.id)}"><h2>${escape(item.title)}</h2>${item.paragraphs.map(text => `<p>${escape(text)}</p>`).join('')}${item.id === first.id ? '<p>アプリの「使い方」から「はじめてガイドを開始」を押すと実画面の案内を再表示できます。</p>' : ''}${item.steps.length ? '<ol>' + item.steps.map(text => `<li>${escape(text)}</li>`).join('') + '</ol>' : ''}${item.id === 'shortcuts' ? '<div class="table-scroll"><table><caption>キーとできること</caption><thead><tr><th scope="col">キー</th><th scope="col">できること</th></tr></thead><tbody>' + content.shortcuts.map(row => `<tr><th scope="row">${escape(row.key)}</th><td>${escape(row.text)}</td></tr>`).join('') + '</tbody></table></div>' : ''}${item.id === 'faq' || item.id === 'troubleshooting' ? (item.id === 'faq' ? content.faq : content.troubleshooting).map(row => `<details open><summary>${escape(row.q)}</summary><p>${escape(row.a)}</p></details>`).join('') : ''}${item.image ? `<figure><img src="images/${escape(item.image)}" alt="${escape(item.caption)}" loading="lazy"><figcaption>${escape(item.caption)}</figcaption></figure>` : ''}</section>`;
+const html = `<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escape(content.title)}</title><style>:root{font-family:"Yu Gothic UI",Meiryo,system-ui,sans-serif;color:#142c42;background:#f7fafc;font-size:17px;line-height:1.85}*{box-sizing:border-box}body{margin:0}main{max-width:1020px;margin:auto;padding:36px 24px}h1{font-size:clamp(25px,4vw,36px);line-height:1.45}h2{font-size:25px;border-bottom:2px solid #217f92;padding-bottom:10px}section{margin-top:48px;scroll-margin-top:18px}a{color:#095b78;text-underline-offset:3px}a:focus-visible,summary:focus-visible{outline:3px solid #166688;outline-offset:4px}nav{padding:20px;background:#e8f2f6}nav ul{columns:2;margin:0;padding-left:24px}li{margin:8px 0}figure{margin:22px 0}img{width:100%;height:auto;border:1px solid #54798e;border-radius:4px}figcaption{font-size:15px;margin-top:8px;color:#31546b}table{width:100%;border-collapse:collapse}td,th{padding:12px;border-bottom:1px solid #b6c9d4;text-align:left;vertical-align:top;font-size:16px}thead{background:#e4eff5}caption{text-align:left}details{padding:14px 0;border-bottom:1px solid #b6c9d4}summary{cursor:pointer;font-weight:600}details p{margin:10px 0}.download-links{display:flex;flex-wrap:wrap;gap:18px}footer{margin-top:50px;border-top:1px solid #b6c9d4;font-size:15px}@media(max-width:500px){main{padding:22px 16px}nav ul{columns:1}h2{font-size:22px}td,th{font-size:14px;padding:8px}}@media print{nav,.download-links{display:none}section{break-before:auto}figure,details{break-inside:avoid}body{background:white}a{color:inherit}}</style></head><body><main><header><a href="../">SYNTHIA SRT Studioに戻る</a><h1>${escape(content.title)}</h1><p>${escape(content.edition)}</p><p>${escape(content.intro)}</p><p>画像は動作するアプリを撮影したものです。音源と歌詞は検証用です。</p></header><nav aria-label="マニュアルの目次"><ul>${content.topics.map(item => `<li><a href="#${escape(item.id)}">${escape(item.title)}</a></li>`).join('')}</ul></nav><p class="download-links">${Object.keys(markdowns).map(name => `<a href="${name}">${name}</a>`).join('')}</p>${content.topics.map(htmlSection).join('')}<footer><p>アプリ内ヘルプとMarkdown版は同じ説明データから生成しています。</p><a href="../LICENSE-SRT-Tap-Timer.txt">参考アプリのMITライセンス</a> · <a href="../THIRD_PARTY_NOTICES.txt">第三者表記</a></footer></main></body></html>\n`;
+const outputs = new Map();
+for (const [name, text] of Object.entries(markdowns)) { outputs.set(name, text); outputs.set(`public/manuals/${name}`, text.replaceAll('docs/images/', 'images/')); }
+outputs.set('public/manuals/index.html', html);
+let missing = 0;
+for (const [file, text] of outputs) {
+  if (check) { const actual = await fs.readFile(file, 'utf8').catch(() => null); if (actual !== text) { console.error(`説明データと不一致：${file}`); missing++; } }
+  else { await fs.mkdir(path.dirname(file), { recursive: true }); await fs.writeFile(file, text); }
+}
+for (const item of content.topics.filter(item => item.image)) {
+  const source = `docs/images/${item.image}`, destination = `public/manuals/images/${item.image}`;
+  const bytes = await fs.readFile(source).catch(() => null);
+  if (!bytes) { if (check) { console.error(`実画面の写真がありません：${source}`); missing++; } continue; }
+  if (check) { const published = await fs.readFile(destination).catch(() => null); if (!published?.equals(bytes)) { console.error(`説明画像と不一致：${destination}`); missing++; } }
+  else { await fs.mkdir(path.dirname(destination), { recursive: true }); await fs.writeFile(destination, bytes); }
+}
+if (missing) process.exitCode = 1;
+else console.log(check ? '共通説明・Markdown・公開マニュアル・画像の一致を確認しました。' : '共通説明からマニュアルを生成しました。');

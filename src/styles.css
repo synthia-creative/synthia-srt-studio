@@ -25,3 +25,41 @@
   .inline-actions{margin-top:8px}.editor-heading{margin-bottom:8px}
   .app-footer{margin-top:7px;padding:4px 0;flex-shrink:0}
 }
+/* 初めての方の案内と、キーボードでも読める説明を同じ配色でまとめます。 */
+:root{font-size:15px;--muted:#b2c2d5}
+.header-actions button,.header-actions .file-button,.panel-actions button,.panel-actions .file-button{font-size:13px;min-height:40px}
+.lyrics-input-label,.lyrics-panel>.field-help,.timing-controls p,.timing-context,.lyrics-footer button,.validation-strip,.validation-strip button,.wave-caption{font-size:12px}
+.lyrics-panel>textarea{font-size:15px}.timing-controls>div>button{font-size:14px;min-height:48px}
+.timing-controls .end-target-label{margin:9px 0 0;color:#cae8ee;line-height:1.6}
+.editor-heading h3,.editor-fields label,.flag-controls,.editor-fields button,.batch-toolbar label,.batch-toolbar button,.nudge-controls span,.nudge-controls button,.inline-actions button{font-size:12px}
+.editor-fields input,.editor-fields textarea{font-size:14px}.timestamp{font-size:12px}.lyric-cell{font-size:14px}
+.app-footer,.app-footer button{font-size:12px}.save-status{color:#b2c2d5}
+.button-tooltip{position:fixed;z-index:1000;pointer-events:none;width:min(300px,calc(100vw - 16px));background:#edf8ff;color:#102033;border:1px solid #81dfef;border-radius:5px;box-shadow:0 4px 18px #0006;padding:10px 12px;font-size:14px;line-height:1.6}
+dialog.help-dialog{max-width:1000px;width:calc(100% - 32px);padding:24px}
+.help-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:24px}
+.help-nav{display:flex;flex-direction:column;gap:6px;align-self:start}
+.help-nav button{font-size:14px;text-align:left;min-height:42px;white-space:normal}
+.help-body{min-width:0;font-size:16px;line-height:1.85;overflow-wrap:anywhere}
+.help-body:focus-visible{outline:2px solid var(--cyan);outline-offset:4px}
+.help-body h3{font-size:22px;margin:0 0 14px}.help-body h4{font-size:16px;margin:0 0 5px}
+.help-body p{margin:0 0 16px}.help-body li{margin:8px 0}.help-body ol{padding-left:25px}
+.help-body figure{margin:20px 0}.help-body img{display:block;width:100%;height:auto;border:1px solid #476176;border-radius:4px}
+.help-body figcaption{margin-top:8px;font-size:13px;line-height:1.7;color:#c1d3e4}
+.help-body details{border-top:1px solid #3b536b;padding:10px 0}.help-body details:last-of-type{border-bottom:1px solid #3b536b}
+.help-body summary{cursor:pointer;font-weight:600}.help-body details p{margin:12px 0 5px}.help-body summary:focus-visible{outline:2px solid var(--cyan);outline-offset:4px}
+.help-doc-links{display:flex;flex-direction:column;gap:10px;margin:24px 0;padding-top:18px;border-top:1px solid #3b536b}
+.help-body .license-copy{font-size:13px!important;line-height:1.8;color:#c1d3e4}
+.help-shortcuts{font-size:14px;min-width:0;width:100%;table-layout:fixed}
+.help-shortcuts caption{font-size:15px;text-align:left;margin-bottom:10px}
+.help-shortcuts th,.help-shortcuts td{padding:10px 8px;white-space:normal;font-size:14px;line-height:1.7;width:auto;color:#e8f2fc}
+.help-shortcuts th:last-child{display:table-cell}.help-shortcuts th:first-child{width:39%}.help-shortcuts thead{position:static}
+dialog.guide-dialog{position:fixed;inset:0;margin:0;padding:0;width:100vw;max-width:none;height:100dvh;max-height:none;border:0;border-radius:0;background:transparent;box-shadow:none;overflow:hidden}
+dialog.guide-dialog::backdrop{background:transparent}.guide-shade{position:absolute;inset:0;pointer-events:none}
+.guide-card{position:absolute;right:24px;bottom:24px;width:min(460px,calc(100vw - 32px));max-height:calc(100dvh - 32px);overflow:auto;background:#13263c;border:1px solid #6c9db5;border-radius:8px;padding:22px;color:#f2f8ff;box-shadow:0 10px 40px #0008}
+.guide-card-top{top:24px;bottom:auto}.guide-progress{color:#97ecf8;font-size:14px;margin-bottom:8px}
+.guide-card h2{font-size:22px;line-height:1.5;margin-bottom:10px}.guide-card h2:focus{outline:none}
+.guide-card>p:not(.guide-progress){font-size:16px;line-height:1.7;margin-top:12px}
+.guide-card>.guide-note{color:#d5e3ef}.guide-card>.guide-safety{color:#b8cbdc;font-size:13px!important;border-top:1px solid #3c5870;padding-top:12px}
+.guide-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.guide-actions button{min-height:42px;font-size:14px;flex:1;padding:9px 10px}
+@media(max-width:800px){.help-layout{grid-template-columns:1fr;gap:18px}.help-nav{display:grid;grid-template-columns:1fr 1fr}.help-nav button{font-size:13px}.help-body{font-size:16px}.guide-card{right:16px;bottom:16px;padding:17px}.guide-card-top{top:16px;bottom:auto}}
+@media(max-width:480px){.header-actions{grid-template-columns:repeat(3,minmax(0,1fr))}.header-actions button,.header-actions .file-button{font-size:12px;min-height:40px}.audio-panel .file-button{font-size:12px;min-height:40px}.project-name label,.audio-name,.brand p{font-size:11px}.timing-controls>div>button{font-size:14px}.editor-fields label,.flag-controls{font-size:12px}dialog.help-dialog{padding:16px;width:calc(100% - 20px);max-height:92dvh}.guide-card{width:calc(100vw - 24px);right:12px;bottom:12px}.guide-card-top{top:12px;bottom:auto}.guide-card h2{font-size:20px}.guide-card>p:not(.guide-progress){font-size:15px}.guide-actions button{font-size:13px;padding:8px 6px}}

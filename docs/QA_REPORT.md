@@ -1,5 +1,7 @@
 # SYNTHIA SRT Studio v1.0 検証報告
 
+2026-10-09追加分の最新結果は [初心者ガイド・ヘルプ検証報告](BEGINNER_HELP_QA.md) を参照してください。以下は2026-10-08の初回構築・公開時の記録です。
+
 検証日：2026-10-08。新規の独立フォルダ内で実施。既存SYNTHIA Lyrics Studio、Layer Studio、SRT Tap Timer原本へ編集・依存インストール・Git操作を行っていません。
 
 ## 実行結果
