@@ -21,4 +21,6 @@ npm.cmd run test:e2e
 
 `docs:check` は共通説明と生成文書の一致、写真7枚の存在、公開用コピーとのバイト一致を検査します。GitHub Actionsもこの検査を実行します。UIとの意味上の一致は操作テストと画像の目視確認で補います。
 
+公開後は、最新のビルドを残した状態で `node scripts/verify-public.mjs` を実行すると、distの全ファイルについてHTTP成功とSHA-256一致を検査し、`docs/qa/beginner-public-files.json` に保存します。画像がブラウザに表示されることも別途確認してください。
+
 ガイドの既読状態は `synthia-srt-studio.guide.v1` というブラウザ設定に保存します。字幕やJSONプロジェクトの形式は変更しません。保存が制限される環境では次回起動時に再度案内しますが、同じ画面で終了直後に再表示するループはありません。
